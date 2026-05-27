@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Café Origen — Menú</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F7F4EF;
+      --dark: #1A1814;
+      --brown: #6B4F3A;
+      --gold: #C9A96E;
+      --muted: #9A8E82;
+      --line: #E2DDD6;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--dark);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 56px 28px 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+      animation: fadeDown .8s ease both;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .hero-badge::before,
+    .hero-badge::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px;
+      font-weight: 300;
+      line-height: 1;
+      letter-spacing: -.01em;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--brown);
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .04em;
+    }
+
+    /* NAV CATEGORÍAS */
+    .cat-nav {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      border-bottom: 1px solid var(--line);
+      padding: 0 20px;
+      animation: fadeDown .8s .15s ease both;
+    }
+
+    .cat-nav::-webkit-scrollbar { display: none; }
+
+    .cat-btn {
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      padding: 14px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: color .2s, border-color .2s;
+    }
+
+    .cat-btn.active {
+      color: var(--dark);
+      border-bottom-color: var(--gold);
+    }
+
+    /* SECCIONES */
+    .section {
+      padding: 36px 24px 0;
+      animation: fadeUp .6s ease both;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--brown);
+      margin-bottom: 4px;
+    }
+
+    .section-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 24px;
+      letter-spacing: .02em;
+    }
+
+    /* ITEMS */
+    .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+      transition: opacity .15s;
+    }
+
+    .item:last-child { border-bottom: none; }
+    .item:active { opacity: .6; }
+
+    .item-info { flex: 1; }
+
+    .item-name {
+      font-size: 15px;
+      font-weight: 400;
+      margin-bottom: 4px;
+      color: var(--dark);
+    }
+
+    .item-detail {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .item-tag {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: #fff;
+      padding: 2px 7px;
+      border-radius: 2px;
+      margin-top: 6px;
+    }
+
+    .item-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--brown);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+
+    /* DIVIDER */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 32px 24px 0;
+      opacity: .4;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .divider span {
+      font-size: 14px;
+      color: var(--gold);
+    }
+
+    /* FOOTER TOKEN */
+    .footer {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: var(--dark);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nfc-dot {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s ease infinite;
+    }
+
+    .footer-text {
+      font-size: 11px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.5);
+    }
+
+    .footer-brand {
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .4; transform: scale(.8); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">Menú digital</div>
+    <h1>Café <em>Origen</em></h1>
+    <p class="hero-sub">Buenos Aires · Abierto todos los días</p>
+  </div>
+
+  <!-- NAV CATEGORÍAS -->
+  <nav class="cat-nav">
+    <button class="cat-btn active" onclick="scrollTo('cafes')">Cafés</button>
+    <button class="cat-btn" onclick="scrollTo('desayunos')">Desayunos</button>
+    <button class="cat-btn" onclick="scrollTo('tostadas')">Tostadas</button>
+    <button class="cat-btn" onclick="scrollTo('bebidas')">Bebidas</button>
+  </nav>
+
+  <!-- CAFÉS -->
+  <div class="section" id="cafes">
+    <div class="section-title">Cafés</div>
+    <div class="section-desc">Granos de origen único, tostado en casa</div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Espresso</div>
+        <div class="item-detail">Doble extracción, 30ml</div>
+      </div>
+      <div class="item-price">$1.800</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Cortado</div>
+        <div class="item-detail">Espresso con un toque de leche vaporizada</div>
+      </div>
+      <div class="item-price">$2.100</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Flat White</div>
+        <div class="item-detail">Doble ristretto con leche sedosa</div>
+        <span class="item-tag">⭐ Estrella</span>
+      </div>
+      <div class="item-price">$2.800</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Latte</div>
+        <div class="item-detail">Espresso con leche vaporizada, 220ml</div>
+      </div>
+      <div class="item-price">$2.600</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Cold Brew</div>
+        <div class="item-detail">Infusión en frío 18 horas, servido con hielo</div>
+        <span class="item-tag">Temporada</span>
+      </div>
+      <div class="item-price">$3.200</div>
+    </div>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- DESAYUNOS -->
+  <div class="section" id="desayunos">
+    <div class="section-title">Desayunos</div>
+    <div class="section-desc">Servidos hasta las 12:00 hs</div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Clásico Origen</div>
+        <div class="item-detail">Café a elección · medialunas · jugo de naranja</div>
+        <span class="item-tag">⭐ Estrella</span>
+      </div>
+      <div class="item-price">$5.900</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Bowl de granola</div>
+        <div class="item-detail">Yogur natural · frutos rojos · miel · granola artesanal</div>
+      </div>
+      <div class="item-price">$4.800</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Avocado toast</div>
+        <div class="item-detail">Pan masa madre · palta · huevo poché · semillas</div>
+      </div>
+      <div class="item-price">$5.200</div>
+    </div>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- TOSTADAS -->
+  <div class="section" id="tostadas">
+    <div class="section-title">Tostadas</div>
+    <div class="section-desc">Pan de masa madre, horneado diariamente</div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Manteca y mermelada</div>
+        <div class="item-detail">Mermelada de frutos del bosque artesanal</div>
+      </div>
+      <div class="item-price">$2.400</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Queso crema y tomate</div>
+        <div class="item-detail">Queso crema · tomate cherry · orégano · AOVE</div>
+      </div>
+      <div class="item-price">$3.100</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Ricota y miel</div>
+        <div class="item-detail">Ricota fresca · miel de abeja · nueces tostadas</div>
+        <span class="item-tag">Nuevo</span>
+      </div>
+      <div class="item-price">$3.400</div>
+    </div>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <!-- BEBIDAS -->
+  <div class="section" id="bebidas">
+    <div class="section-title">Bebidas</div>
+    <div class="section-desc">Naturales y artesanales</div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Jugo de naranja</div>
+        <div class="item-detail">Exprimido al momento</div>
+      </div>
+      <div class="item-price">$2.200</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Limonada con jengibre</div>
+        <div class="item-detail">Limón · jengibre · menta fresca · soda</div>
+        <span class="item-tag">⭐ Estrella</span>
+      </div>
+      <div class="item-price">$2.800</div>
+    </div>
+
+    <div class="item">
+      <div class="item-info">
+        <div class="item-name">Agua mineral</div>
+        <div class="item-detail">Con o sin gas, 500ml</div>
+      </div>
+      <div class="item-price">$1.200</div>
+    </div>
+  </div>
+
+  <!-- FOOTER FIJO -->
+  <div class="footer">
+    <div class="footer-left">
+      <div class="nfc-dot"></div>
+      <span class="footer-text">Token NFC activo</span>
+    </div>
+    <span class="footer-brand">Estudio Token</span>
+  </div>
+
+  <script>
+    // Scroll suave a sección
+    function scrollTo(id) {
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Marcar categoría activa al hacer scroll
+    const sections = ['cafes','desayunos','tostadas','bebidas'];
+    window.addEventListener('scroll', () => {
+      let current = sections[0];
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 80) current = id;
+      });
+      document.querySelectorAll('.cat-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', sections[i] === current);
+      });
+    });
+  </script>
+
+</body>
+</html>
