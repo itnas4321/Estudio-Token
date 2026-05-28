@@ -274,7 +274,7 @@
         'apikey': SUPABASE_KEY,
         'Authorization': 'Bearer ' + SUPABASE_KEY,
         'Content-Type': 'application/json',
-        'Prefer': method !== 'GET' ? 'return=representation' : ''
+        'Prefer': method === 'POST' ? 'return=minimal' : ''
       }
     };
     if (body) opts.body = JSON.stringify(body);
