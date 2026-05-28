@@ -285,7 +285,12 @@
 
   async function cargarTodo() {
     categorias = await api(`categorias?cliente_id=eq.${clienteId}&order=orden.asc`);
-    platos = await api(`platos?select=*&orden=asc`);
+    if (categorias.length) {
+      const catIds = categorias.map(c => c.id).join(',');
+      platos = await api(`platos?categoria_id=in.(${catIds})&order=orden.asc`);
+    } else {
+      platos = [];
+    }
     renderCategorias();
   }
 
