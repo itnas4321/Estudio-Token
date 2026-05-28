@@ -345,17 +345,16 @@
   }
 
   function editarCategoria(id) { abrirModalCategoria(id); }
-
-  async function guardarCategoria() {
+async function guardarCategoria() {
     const nombre = document.getElementById('cat-nombre').value.trim();
     if (!nombre) { toast('Ingresá un nombre'); return; }
     const data = { nombre, descripcion: document.getElementById('cat-desc').value.trim(), cliente_id: clienteId };
+    cerrarModal('modal-cat');  // ← primero cerramos
     if (editCatId) {
       await api(`categorias?id=eq.${editCatId}`, 'PATCH', data);
     } else {
       await api('categorias', 'POST', { ...data, orden: categorias.length });
     }
-    cerrarModal('modal-cat');
     await cargarTodo();
     toast(editCatId ? 'Categoría actualizada' : 'Categoría creada ✓');
     editCatId = null;
