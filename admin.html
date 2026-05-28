@@ -395,6 +395,7 @@ async function guardarCategoria() {
     const precio = document.getElementById('plato-precio').value;
     if (!nombre || !precio) { toast('Nombre y precio son obligatorios'); return; }
     const platoId = document.getElementById('plato-id').value;
+    cerrarModal('modal-plato');  // ← primero cerramos
     const data = {
       nombre,
       descripcion: document.getElementById('plato-desc').value.trim(),
@@ -403,6 +404,14 @@ async function guardarCategoria() {
       categoria_id: document.getElementById('plato-cat-id').value,
       activo: true
     };
+    if (platoId) {
+      await api(`platos?id=eq.${platoId}`, 'PATCH', data);
+    } else {
+      await api('platos', 'POST', { ...data, orden: 0 });
+    }
+    await cargarTodo();
+    toast(platoId ? 'Plato actualizado ✓' : 'Plato agregado ✓');
+  };
     if (platoId) {
       await api(`platos?id=eq.${platoId}`, 'PATCH', data);
     } else {
