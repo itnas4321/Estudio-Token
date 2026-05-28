@@ -8,151 +8,52 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #F7F4EF;
-      --dark: #1A1814;
-      --brown: #6B4F3A;
-      --gold: #C9A96E;
-      --muted: #9A8E82;
-      --line: #E2DDD6;
-      --white: #FFFFFF;
-      --red: #C0392B;
-      --green: #27AE60;
+      --bg: #F7F4EF; --dark: #1A1814; --brown: #6B4F3A; --gold: #C9A96E;
+      --muted: #9A8E82; --line: #E2DDD6; --white: #FFFFFF; --red: #C0392B;
     }
     body { background: var(--bg); font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--dark); min-height: 100vh; }
-
-    /* TOPBAR */
-    .topbar {
-      background: var(--dark);
-      color: #fff;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky; top: 0; z-index: 100;
-    }
+    .topbar { background: var(--dark); color: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .topbar-brand { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
     .topbar-user { font-size: 12px; color: rgba(255,255,255,.5); }
-    .btn-logout { background: none; border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.6); font-size: 11px; padding: 5px 12px; border-radius: 4px; cursor: pointer; letter-spacing: .04em; }
+    .btn-logout { background: none; border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.6); font-size: 11px; padding: 5px 12px; border-radius: 4px; cursor: pointer; }
     .btn-logout:hover { border-color: var(--gold); color: var(--gold); }
-
-    /* LAYOUT */
     .container { max-width: 680px; margin: 0 auto; padding: 32px 20px 80px; }
     .page-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-style: italic; color: var(--brown); margin-bottom: 4px; }
     .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 32px; }
-
-    /* CARDS */
     .card { background: var(--white); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
-    .card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--line);
-      cursor: pointer;
-      user-select: none;
-    }
-    .card-header:hover { background: var(--bg); }
+    .card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); }
     .card-cat-name { font-size: 15px; font-weight: 400; }
     .card-actions { display: flex; gap: 8px; align-items: center; }
     .card-body { padding: 0 20px 16px; }
-
-    /* PLATOS */
-    .plato-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
-    }
+    .plato-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
     .plato-row:last-child { border-bottom: none; }
     .plato-info { flex: 1; }
     .plato-nombre { font-size: 14px; font-weight: 400; }
     .plato-desc { font-size: 12px; color: var(--muted); }
     .plato-precio { font-size: 14px; color: var(--brown); white-space: nowrap; }
-
-    /* BUTTONS */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: .04em;
-      padding: 8px 16px;
-      border-radius: 4px;
-      border: none;
-      cursor: pointer;
-      transition: opacity .15s;
-    }
+    .btn { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: .04em; padding: 8px 16px; border-radius: 4px; border: none; cursor: pointer; transition: opacity .15s; }
     .btn:hover { opacity: .8; }
     .btn-primary { background: var(--dark); color: #fff; }
     .btn-gold { background: var(--gold); color: #fff; }
     .btn-outline { background: none; border: 1px solid var(--line); color: var(--dark); }
     .btn-danger { background: none; border: 1px solid #f0c0bc; color: var(--red); font-size: 11px; padding: 5px 10px; }
     .btn-sm { padding: 5px 10px; font-size: 11px; }
-
-    /* MODAL */
-    .modal-overlay {
-      display: none;
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.5);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
     .modal-overlay.open { display: flex; }
-    .modal {
-      background: var(--white);
-      border-radius: 10px;
-      padding: 28px;
-      width: 100%;
-      max-width: 420px;
-      animation: fadeUp .25s ease;
-    }
+    .modal { background: var(--white); border-radius: 10px; padding: 28px; width: 100%; max-width: 420px; animation: fadeUp .25s ease; }
     .modal-title { font-size: 18px; font-weight: 400; margin-bottom: 20px; }
     .field { margin-bottom: 16px; }
     .field label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-    .field input, .field textarea, .field select {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 14px;
-      font-weight: 300;
-      background: var(--bg);
-      color: var(--dark);
-      outline: none;
-      transition: border-color .2s;
-    }
+    .field input, .field textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--line); border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; background: var(--bg); color: var(--dark); outline: none; transition: border-color .2s; }
     .field input:focus, .field textarea:focus { border-color: var(--gold); }
     .field textarea { resize: vertical; min-height: 70px; }
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
-
-    /* TOAST */
-    .toast {
-      position: fixed;
-      bottom: 24px; left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: var(--dark);
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 6px;
-      font-size: 13px;
-      transition: transform .3s;
-      z-index: 300;
-    }
+    .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--dark); color: #fff; padding: 12px 24px; border-radius: 6px; font-size: 13px; transition: transform .3s; z-index: 300; }
     .toast.show { transform: translateX(-50%) translateY(0); }
-
-    /* EMPTY */
     .empty { text-align: center; padding: 32px; color: var(--muted); font-size: 13px; }
-
     .add-cat-wrap { margin-bottom: 24px; }
     .link-preview { font-size: 12px; color: var(--muted); background: var(--white); border: 1px solid var(--line); border-radius: 4px; padding: 10px 14px; margin-bottom: 24px; word-break: break-all; }
     .link-preview a { color: var(--gold); }
-
     @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
   </style>
 </head>
@@ -168,16 +69,11 @@
 
 <div class="container">
   <div class="page-title" id="page-title">Mi menú</div>
-  <p class="page-sub" id="page-sub">Gestioná las categorías y platos de tu local</p>
-
-  <div class="link-preview">
-    🔗 Link de tu menú: <a id="menu-link" href="#" target="_blank"></a>
-  </div>
-
+  <p class="page-sub">Gestioná las categorías y platos de tu local</p>
+  <div class="link-preview">🔗 Link de tu menú: <a id="menu-link" href="#" target="_blank"></a></div>
   <div class="add-cat-wrap">
     <button class="btn btn-primary" onclick="abrirModalCategoria()">+ Nueva categoría</button>
   </div>
-
   <div id="categorias-list"><div class="empty">Cargando...</div></div>
 </div>
 
@@ -241,10 +137,10 @@
   let platos = [];
   let editCatId = null;
 
-  // ——— AUTH ———
   function getSession() {
     try { return JSON.parse(localStorage.getItem('et_session')); } catch { return null; }
   }
+
   function logout() {
     localStorage.removeItem('et_session');
     window.location.href = 'login.html';
@@ -253,20 +149,16 @@
   async function init() {
     const session = getSession();
     if (!session) { window.location.href = 'login.html'; return; }
-
     document.getElementById('topbar-user').textContent = session.email;
     clienteId = session.cliente_id;
     clienteSlug = session.slug;
-
     const link = `${window.location.origin}/menu.html?local=${clienteSlug}`;
     const el = document.getElementById('menu-link');
     el.href = link; el.textContent = link;
     document.getElementById('page-title').textContent = session.nombre || 'Mi menú';
-
     await cargarTodo();
   }
 
-  // ——— FETCH ———
   async function api(path, method='GET', body=null) {
     const opts = {
       method,
@@ -279,7 +171,7 @@
     };
     if (body) opts.body = JSON.stringify(body);
     const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, opts);
-    if (res.status === 204) return [];
+    if (res.status === 204 || res.status === 201) return [];
     return res.json();
   }
 
@@ -294,7 +186,6 @@
     renderCategorias();
   }
 
-  // ——— RENDER ———
   function renderCategorias() {
     const el = document.getElementById('categorias-list');
     if (!categorias.length) {
@@ -329,7 +220,7 @@
     }).join('');
   }
 
-  // ——— CATEGORÍAS ———
+  // CATEGORÍAS
   function abrirModalCategoria(id=null) {
     editCatId = id;
     document.getElementById('modal-cat-title').textContent = id ? 'Editar categoría' : 'Nueva categoría';
@@ -345,18 +236,19 @@
   }
 
   function editarCategoria(id) { abrirModalCategoria(id); }
-async function guardarCategoria() {
+
+  async function guardarCategoria() {
     const nombre = document.getElementById('cat-nombre').value.trim();
     if (!nombre) { toast('Ingresá un nombre'); return; }
     const data = { nombre, descripcion: document.getElementById('cat-desc').value.trim(), cliente_id: clienteId };
-    cerrarModal('modal-cat');  // ← primero cerramos
+    cerrarModal('modal-cat');
     if (editCatId) {
       await api(`categorias?id=eq.${editCatId}`, 'PATCH', data);
     } else {
       await api('categorias', 'POST', { ...data, orden: categorias.length });
     }
     await cargarTodo();
-    toast(editCatId ? 'Categoría actualizada' : 'Categoría creada ✓');
+    toast(editCatId ? 'Categoría actualizada ✓' : 'Categoría creada ✓');
     editCatId = null;
   }
 
@@ -368,7 +260,7 @@ async function guardarCategoria() {
     toast('Categoría eliminada');
   }
 
-  // ——— PLATOS ———
+  // PLATOS
   function abrirModalPlato(catId, platoId=null) {
     document.getElementById('plato-cat-id').value = catId;
     document.getElementById('plato-id').value = platoId || '';
@@ -395,29 +287,21 @@ async function guardarCategoria() {
     const precio = document.getElementById('plato-precio').value;
     if (!nombre || !precio) { toast('Nombre y precio son obligatorios'); return; }
     const platoId = document.getElementById('plato-id').value;
-    cerrarModal('modal-plato');  // ← primero cerramos
     const data = {
       nombre,
       descripcion: document.getElementById('plato-desc').value.trim(),
       precio: parseFloat(precio),
       tag: document.getElementById('plato-tag').value.trim(),
       categoria_id: document.getElementById('plato-cat-id').value,
-      activo: true
+      activo: true,
+      orden: 0
     };
-    if (platoId) {
-      await api(`platos?id=eq.${platoId}`, 'PATCH', data);
-    } else {
-      await api('platos', 'POST', { ...data, orden: 0 });
-    }
-    await cargarTodo();
-    toast(platoId ? 'Plato actualizado ✓' : 'Plato agregado ✓');
-  };
-    if (platoId) {
-      await api(`platos?id=eq.${platoId}`, 'PATCH', data);
-    } else {
-      await api('platos', 'POST', { ...data, orden: 0 });
-    }
     cerrarModal('modal-plato');
+    if (platoId) {
+      await api(`platos?id=eq.${platoId}`, 'PATCH', data);
+    } else {
+      await api('platos', 'POST', data);
+    }
     await cargarTodo();
     toast(platoId ? 'Plato actualizado ✓' : 'Plato agregado ✓');
   }
@@ -429,8 +313,8 @@ async function guardarCategoria() {
     toast('Plato eliminado');
   }
 
-  // ——— UTILS ———
   function cerrarModal(id) { document.getElementById(id).classList.remove('open'); }
+
   function toast(msg) {
     const el = document.getElementById('toast');
     el.textContent = msg;
