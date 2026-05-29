@@ -196,7 +196,31 @@
     </div>
   </div>
 
-  <!-- CATEGORÍAS -->
+  <!-- REDES Y RESEÑA -->
+  <span class="section-label">Redes sociales y rese&#241;a</span>
+  <div class="card">
+    <div class="card-body">
+      <div class="field">
+        <label>&#128248; Instagram (usuario sin @)</label>
+        <input type="text" id="instagram" placeholder="cafeorigen">
+      </div>
+      <div class="field">
+        <label>&#128172; WhatsApp (n&#250;mero con c&#243;digo de pa&#237;s)</label>
+        <input type="text" id="whatsapp" placeholder="5491112345678">
+      </div>
+      <div class="field">
+        <label>&#128506; Google Maps (link completo)</label>
+        <input type="text" id="google_maps" placeholder="https://maps.google.com/...">
+      </div>
+      <div class="field">
+        <label>&#11088; Link de rese&#241;a (cualquier plataforma)</label>
+        <input type="text" id="resena_url" placeholder="https://g.page/r/...">
+      </div>
+      <button class="btn btn-primary" onclick="guardarRedes()">Guardar redes</button>
+    </div>
+  </div>
+
+    <!-- CATEGORÍAS -->
   <span class="section-label">Contenido del menú</span>
   <div class="add-cat-wrap">
     <button class="btn btn-primary" onclick="abrirModalCategoria()">+ Nueva categoría</button>
@@ -296,6 +320,10 @@
     if (c.color_texto) { document.getElementById('color-texto').value = c.color_texto; updateHex('texto'); }
     if (c.color_acento) { document.getElementById('color-acento').value = c.color_acento; updateHex('acento'); }
     if (c.color_primario) { document.getElementById('color-primario').value = c.color_primario; updateHex('primario'); }
+    if (c.instagram)   document.getElementById('instagram').value = c.instagram || '';
+    if (c.whatsapp)    document.getElementById('whatsapp').value = c.whatsapp || '';
+    if (c.google_maps) document.getElementById('google_maps').value = c.google_maps || '';
+    if (c.resena_url)  document.getElementById('resena_url').value = c.resena_url || '';
     if (c.tipografia) {
       tipografiaActual = c.tipografia;
       document.querySelectorAll('.font-option').forEach(el => el.classList.remove('selected'));
@@ -458,7 +486,18 @@
     m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
   });
 
-  init();
+
+  async function guardarRedes() {
+    await api(`clientes?id=eq.${clienteId}`, 'PATCH', {
+      instagram:   document.getElementById('instagram').value.trim(),
+      whatsapp:    document.getElementById('whatsapp').value.trim(),
+      google_maps: document.getElementById('google_maps').value.trim(),
+      resena_url:  document.getElementById('resena_url').value.trim()
+    });
+    toast('Redes guardadas ✓');
+  }
+
+    init();
 </script>
 </body>
 </html>
