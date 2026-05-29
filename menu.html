@@ -16,171 +16,64 @@
       --line: #E2DDD6;
     }
     html { scroll-behavior: smooth; }
-    body {
-      background: var(--cream);
-      color: var(--dark);
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
-      padding-bottom: 80px;
-    }
-    .hero {
-      padding: 56px 28px 40px;
-      text-align: center;
-      border-bottom: 1px solid var(--line);
-      animation: fadeDown .8s ease both;
-    }
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
-    }
-    .hero-badge::before, .hero-badge::after {
-      content: '';
+    body { background: var(--cream); color: var(--dark); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; padding-bottom: 80px; }
+
+    /* PORTADA */
+    .portada {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
       display: block;
-      width: 24px;
-      height: 1px;
-      background: var(--gold);
     }
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 52px;
-      font-weight: 300;
-      line-height: 1;
-      letter-spacing: -.01em;
-      margin-bottom: 8px;
-    }
+
+    /* HERO */
+    .hero { padding: 32px 28px 28px; text-align: center; border-bottom: 1px solid var(--line); animation: fadeDown .8s ease both; }
+    .hero-logo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid var(--cream); margin: -52px auto 16px; display: block; box-shadow: 0 2px 12px rgba(0,0,0,.12); position: relative; }
+    .hero-logo.no-portada { margin: 0 auto 16px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .hero-badge::before, .hero-badge::after { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1; letter-spacing: -.01em; margin-bottom: 6px; }
     .hero h1 em { font-style: italic; color: var(--brown); }
     .hero-sub { font-size: 13px; color: var(--muted); letter-spacing: .04em; }
-    .cat-nav {
-      display: flex;
-      overflow-x: auto;
-      scrollbar-width: none;
-      border-bottom: 1px solid var(--line);
-      padding: 0 20px;
-    }
+
+    /* NAV */
+    .cat-nav { display: flex; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); padding: 0 20px; }
     .cat-nav::-webkit-scrollbar { display: none; }
-    .cat-btn {
-      flex-shrink: 0;
-      background: none;
-      border: none;
-      padding: 14px 18px;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--muted);
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color .2s, border-color .2s;
-    }
+    .cat-btn { flex-shrink: 0; background: none; border: none; padding: 14px 18px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s; }
     .cat-btn.active { color: var(--dark); border-bottom-color: var(--gold); }
+
+    /* ITEMS */
     .section { padding: 36px 24px 0; animation: fadeUp .6s ease both; }
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 28px;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--brown);
-      margin-bottom: 4px;
-    }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; font-style: italic; color: var(--brown); margin-bottom: 4px; }
     .section-desc { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
-    .item {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 18px 0;
-      border-bottom: 1px solid var(--line);
-    }
+    .item { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
     .item:last-child { border-bottom: none; }
     .item-info { flex: 1; }
     .item-name { font-size: 15px; font-weight: 400; margin-bottom: 4px; }
     .item-detail { font-size: 12px; color: var(--muted); line-height: 1.5; }
-    .item-tag {
-      display: inline-block;
-      font-size: 10px;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      background: var(--gold);
-      color: #fff;
-      padding: 2px 7px;
-      border-radius: 2px;
-      margin-top: 6px;
-    }
-    .item-price {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
-      font-weight: 300;
-      color: var(--brown);
-      white-space: nowrap;
-      padding-top: 2px;
-    }
-    .divider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 32px 24px 0;
-      opacity: .4;
-    }
-    .divider::before, .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--gold);
-    }
+    .item-tag { display: inline-block; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; background: var(--gold); color: #fff; padding: 2px 7px; border-radius: 2px; margin-top: 6px; }
+    .item-price { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--brown); white-space: nowrap; padding-top: 2px; }
+    .divider { display: flex; align-items: center; gap: 12px; padding: 32px 24px 0; opacity: .4; }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--gold); }
     .divider span { font-size: 14px; color: var(--gold); }
-    .loading {
-      text-align: center;
-      padding: 60px 24px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .error-msg {
-      text-align: center;
-      padding: 60px 24px;
-      color: var(--brown);
-      font-size: 14px;
-    }
-    .footer {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--dark);
-      color: #fff;
-      padding: 14px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .loading { text-align: center; padding: 60px 24px; color: var(--muted); font-size: 14px; }
+    .error-msg { text-align: center; padding: 60px 24px; color: var(--brown); font-size: 14px; }
+
+    /* FOOTER */
+    .footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); color: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
     .footer-left { display: flex; align-items: center; gap: 10px; }
-    .nfc-dot {
-      width: 8px; height: 8px;
-      background: var(--gold);
-      border-radius: 50%;
-      animation: pulse 2s ease infinite;
-    }
+    .nfc-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 2s ease infinite; }
     .footer-text { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.5); }
     .footer-brand { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+
     @keyframes fadeDown { from { opacity:0; transform:translateY(-12px); } to { opacity:1; transform:translateY(0); } }
     @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
     @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.8); } }
   </style>
 </head>
 <body>
-  <div class="hero" id="hero">
-    <div class="hero-badge">Menú digital</div>
-    <h1 id="nombre-local">Cargando...</h1>
-    <p class="hero-sub" id="subtitulo-local">Buenos Aires</p>
-  </div>
-  <nav class="cat-nav" id="cat-nav"></nav>
   <div id="menu-content"><div class="loading">Cargando menú...</div></div>
+
   <div class="footer">
     <div class="footer-left">
       <div class="nfc-dot"></div>
@@ -193,7 +86,6 @@
     const SUPABASE_URL = 'https://oaiutkqvrywttrkajyye.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9haXV0a3F2cnl3dHRya2FqeXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzQzMTYsImV4cCI6MjA5NTQ1MDMxNn0.DeoK-NDQMocQhWEGATB5HRilt3rttEEIXznTyKlPmCU';
 
-    // Obtener slug de la URL: /menu.html?local=cafe-origen
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('local') || 'cafe-origen';
 
@@ -206,30 +98,51 @@
 
     async function cargarMenu() {
       try {
-        // 1. Obtener cliente
         const clientes = await fetchJSON(`${SUPABASE_URL}/rest/v1/clientes?slug=eq.${slug}&select=*`);
         if (!clientes.length) {
           document.getElementById('menu-content').innerHTML = '<div class="error-msg">Local no encontrado.</div>';
           return;
         }
         const cliente = clientes[0];
-        document.getElementById('nombre-local').innerHTML = cliente.nombre;
-        if (cliente.direccion) document.getElementById('subtitulo-local').textContent = cliente.direccion;
 
-        // 2. Obtener categorías
+        // Aplicar color personalizado
+        if (cliente.color_primario) {
+          document.documentElement.style.setProperty('--gold', cliente.color_primario);
+          document.documentElement.style.setProperty('--brown', cliente.color_primario);
+        }
+
         const categorias = await fetchJSON(`${SUPABASE_URL}/rest/v1/categorias?cliente_id=eq.${cliente.id}&select=*&order=orden.asc`);
+        let platos = [];
+        if (categorias.length) {
+          const catIds = categorias.map(c => c.id).join(',');
+          platos = await fetchJSON(`${SUPABASE_URL}/rest/v1/platos?categoria_id=in.(${catIds})&activo=eq.true&order=orden.asc`);
+        }
 
-        // 3. Obtener platos
-        const platos = await fetchJSON(`${SUPABASE_URL}/rest/v1/platos?select=*,categorias!inner(cliente_id)&categorias.cliente_id=eq.${cliente.id}&activo=eq.true&order=orden.asc`);
-
-        // 4. Renderizar nav
-        const nav = document.getElementById('cat-nav');
-        nav.innerHTML = categorias.map((c, i) =>
-          `<button class="cat-btn ${i===0?'active':''}" onclick="scrollToSec('cat-${c.id}', this)">${c.nombre}</button>`
-        ).join('');
-
-        // 5. Renderizar menú
+        // Armar HTML
         let html = '';
+
+        // Portada
+        if (cliente.portada_url) {
+          html += `<img class="portada" src="${cliente.portada_url}" alt="Portada">`;
+        }
+
+        // Hero
+        const logoClass = cliente.portada_url ? '' : 'no-portada';
+        html += `<div class="hero">`;
+        if (cliente.logo_url) {
+          html += `<img class="hero-logo ${logoClass}" src="${cliente.logo_url}" alt="Logo">`;
+        }
+        html += `<div class="hero-badge">Menú digital</div>
+          <h1>${cliente.nombre}</h1>
+          <p class="hero-sub">${cliente.direccion || 'Buenos Aires'}</p>
+        </div>`;
+
+        // Nav categorías
+        html += `<nav class="cat-nav">` + categorias.map((c, i) =>
+          `<button class="cat-btn ${i===0?'active':''}" onclick="scrollToSec('cat-${c.id}', this)">${c.nombre}</button>`
+        ).join('') + `</nav>`;
+
+        // Secciones
         categorias.forEach((cat, i) => {
           const items = platos.filter(p => p.categoria_id === cat.id);
           if (!items.length) return;
@@ -250,7 +163,9 @@
           html += '</div>';
         });
 
-        document.getElementById('menu-content').innerHTML = html || '<div class="error-msg">No hay platos cargados aún.</div>';
+        if (!categorias.length) html += '<div class="error-msg">No hay platos cargados aún.</div>';
+
+        document.getElementById('menu-content').innerHTML = html;
 
       } catch(e) {
         document.getElementById('menu-content').innerHTML = '<div class="error-msg">Error al cargar el menú.</div>';
@@ -266,12 +181,10 @@
     window.addEventListener('scroll', () => {
       const sections = document.querySelectorAll('.section');
       let current = null;
-      sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 80) current = s.id;
-      });
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
       if (!current) return;
-      document.querySelectorAll('.cat-btn').forEach((btn, i) => {
-        btn.classList.toggle('active', `cat-${btn.textContent}` === current || sections[i]?.id === current);
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.toggle('active', `cat-${btn.dataset.id}` === current);
       });
     });
 
