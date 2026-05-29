@@ -20,7 +20,7 @@
     .container { max-width: 680px; margin: 0 auto; padding: 32px 20px 80px; }
     .page-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-style: italic; color: var(--brown); margin-bottom: 4px; }
     .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 32px; }
-    .section-title { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; margin-top: 32px; }
+    .section-label { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; margin-top: 32px; display: block; }
     .card { background: var(--white); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 16px; overflow: hidden; }
     .card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--line); }
     .card-cat-name { font-size: 15px; font-weight: 400; }
@@ -45,8 +45,8 @@
     .modal-title { font-size: 18px; font-weight: 400; margin-bottom: 20px; }
     .field { margin-bottom: 16px; }
     .field label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-    .field input, .field textarea { width: 100%; padding: 10px 14px; border: 1px solid var(--line); border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; background: var(--bg); color: var(--dark); outline: none; transition: border-color .2s; }
-    .field input:focus, .field textarea:focus { border-color: var(--gold); }
+    .field input, .field textarea, .field select { width: 100%; padding: 10px 14px; border: 1px solid var(--line); border-radius: 4px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 300; background: var(--bg); color: var(--dark); outline: none; transition: border-color .2s; }
+    .field input:focus, .field textarea:focus, .field select:focus { border-color: var(--gold); }
     .field textarea { resize: vertical; min-height: 70px; }
     .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px; }
     .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--dark); color: #fff; padding: 12px 24px; border-radius: 6px; font-size: 13px; transition: transform .3s; z-index: 300; }
@@ -56,22 +56,40 @@
     .link-preview { font-size: 12px; color: var(--muted); background: var(--white); border: 1px solid var(--line); border-radius: 4px; padding: 10px 14px; margin-bottom: 16px; word-break: break-all; }
     .link-preview a { color: var(--gold); }
 
-    /* IMAGEN UPLOAD */
-    .img-upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    /* IMAGENES */
+    .img-upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
     .img-upload-box { border: 2px dashed var(--line); border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: border-color .2s; position: relative; overflow: hidden; }
     .img-upload-box:hover { border-color: var(--gold); }
-    .img-upload-box input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; }
-    .img-preview { width: 100%; height: 100px; object-fit: cover; border-radius: 4px; margin-bottom: 8px; display: none; }
+    .img-upload-box input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .img-preview { width: 100%; height: 80px; object-fit: cover; border-radius: 4px; margin-bottom: 8px; display: none; }
     .img-preview.show { display: block; }
-    .img-label { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: block; }
-    .img-icon { font-size: 28px; margin-bottom: 8px; }
+    .img-label { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: block; }
+    .img-icon { font-size: 24px; margin-bottom: 6px; display: block; }
     .img-hint { font-size: 11px; color: var(--muted); }
-    .uploading { font-size: 12px; color: var(--gold); margin-top: 4px; }
+    .uploading { font-size: 12px; color: var(--gold); margin-top: 4px; display: none; }
 
-    /* COLOR PICKER */
-    .color-row { display: flex; align-items: center; gap: 12px; }
-    .color-row input[type=color] { width: 48px; height: 36px; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; padding: 2px; background: var(--bg); }
-    .color-hint { font-size: 12px; color: var(--muted); }
+    /* COLORES */
+    .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .color-item label { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .color-row { display: flex; align-items: center; gap: 10px; }
+    .color-row input[type=color] { width: 44px; height: 36px; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; padding: 2px; background: var(--bg); flex-shrink: 0; }
+    .color-hex { font-size: 12px; color: var(--muted); font-family: monospace; }
+
+    /* TIPOGRAFIA */
+    .font-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .font-option { border: 2px solid var(--line); border-radius: 6px; padding: 12px; cursor: pointer; text-align: center; transition: border-color .2s; }
+    .font-option.selected { border-color: var(--gold); background: #fdf9f3; }
+    .font-option:hover { border-color: var(--gold); }
+    .font-name { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .font-sample { font-size: 18px; color: var(--dark); }
+    .font-sample.clasica { font-family: 'Cormorant Garamond', serif; font-style: italic; }
+    .font-sample.moderna { font-family: 'DM Sans', sans-serif; font-weight: 300; }
+    .font-sample.bold { font-family: 'DM Sans', sans-serif; font-weight: 500; }
+    .font-sample.mono { font-family: 'Courier New', monospace; }
+
+    /* PREVIEW BADGE */
+    .preview-link { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gold); text-decoration: none; margin-top: 16px; }
+    .preview-link:hover { opacity: .8; }
 
     @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
   </style>
@@ -88,51 +106,98 @@
 
 <div class="container">
   <div class="page-title" id="page-title">Mi menú</div>
-  <p class="page-sub">Gestioná el aspecto y contenido de tu local</p>
-
+  <p class="page-sub">Personalizá el aspecto y contenido de tu local</p>
   <div class="link-preview">🔗 Link de tu menú: <a id="menu-link" href="#" target="_blank"></a></div>
 
-  <!-- APARIENCIA -->
-  <div class="section-title">Apariencia</div>
+  <!-- IMÁGENES -->
+  <span class="section-label">Imágenes</span>
   <div class="card">
     <div class="card-body">
-
       <div class="img-upload-grid">
-        <!-- LOGO -->
-        <div class="img-upload-box" onclick="document.getElementById('input-logo').click()">
+        <div class="img-upload-box">
           <input type="file" id="input-logo" accept="image/*" onchange="subirImagen('logo')">
           <img id="preview-logo" class="img-preview" src="">
           <span class="img-icon">🏷️</span>
-          <span class="img-label">Logo del local</span>
-          <span class="img-hint">PNG o JPG recomendado</span>
-          <div class="uploading" id="loading-logo" style="display:none">Subiendo...</div>
+          <span class="img-label">Logo</span>
+          <span class="img-hint">PNG recomendado</span>
+          <div class="uploading" id="loading-logo">Subiendo...</div>
         </div>
-        <!-- PORTADA -->
-        <div class="img-upload-box" onclick="document.getElementById('input-portada').click()">
+        <div class="img-upload-box">
           <input type="file" id="input-portada" accept="image/*" onchange="subirImagen('portada')">
           <img id="preview-portada" class="img-preview" src="">
           <span class="img-icon">🖼️</span>
-          <span class="img-label">Foto de portada</span>
-          <span class="img-hint">Se muestra arriba del menú</span>
-          <div class="uploading" id="loading-portada" style="display:none">Subiendo...</div>
+          <span class="img-label">Portada</span>
+          <span class="img-hint">Se ve arriba del menú</span>
+          <div class="uploading" id="loading-portada">Subiendo...</div>
         </div>
       </div>
+    </div>
+  </div>
 
-      <div style="margin-top:20px">
-        <div class="field">
-          <label>Color principal</label>
+  <!-- COLORES -->
+  <span class="section-label">Colores</span>
+  <div class="card">
+    <div class="card-body">
+      <div class="color-grid">
+        <div class="color-item">
+          <label>Fondo</label>
           <div class="color-row">
-            <input type="color" id="color-primario" value="#C9A96E" onchange="guardarColor()">
-            <span class="color-hint">Se aplica en botones y acentos del menú</span>
+            <input type="color" id="color-fondo" value="#F7F4EF" oninput="updateHex('fondo')" onchange="guardarDiseno()">
+            <span class="color-hex" id="hex-fondo">#F7F4EF</span>
+          </div>
+        </div>
+        <div class="color-item">
+          <label>Texto principal</label>
+          <div class="color-row">
+            <input type="color" id="color-texto" value="#1A1814" oninput="updateHex('texto')" onchange="guardarDiseno()">
+            <span class="color-hex" id="hex-texto">#1A1814</span>
+          </div>
+        </div>
+        <div class="color-item">
+          <label>Acento / precios</label>
+          <div class="color-row">
+            <input type="color" id="color-acento" value="#C9A96E" oninput="updateHex('acento')" onchange="guardarDiseno()">
+            <span class="color-hex" id="hex-acento">#C9A96E</span>
+          </div>
+        </div>
+        <div class="color-item">
+          <label>Barra inferior</label>
+          <div class="color-row">
+            <input type="color" id="color-primario" value="#1A1814" oninput="updateHex('primario')" onchange="guardarDiseno()">
+            <span class="color-hex" id="hex-primario">#1A1814</span>
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
+  <!-- TIPOGRAFÍA -->
+  <span class="section-label">Tipografía</span>
+  <div class="card">
+    <div class="card-body">
+      <div class="font-grid">
+        <div class="font-option selected" onclick="elegirFuente('clasica', this)">
+          <div class="font-name">Clásica</div>
+          <div class="font-sample clasica">Menú</div>
+        </div>
+        <div class="font-option" onclick="elegirFuente('moderna', this)">
+          <div class="font-name">Moderna</div>
+          <div class="font-sample moderna">Menú</div>
+        </div>
+        <div class="font-option" onclick="elegirFuente('bold', this)">
+          <div class="font-name">Bold</div>
+          <div class="font-sample bold">Menú</div>
+        </div>
+        <div class="font-option" onclick="elegirFuente('mono', this)">
+          <div class="font-name">Mono</div>
+          <div class="font-sample mono">Menú</div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- CATEGORÍAS -->
-  <div class="section-title">Menú</div>
+  <span class="section-label">Contenido del menú</span>
   <div class="add-cat-wrap">
     <button class="btn btn-primary" onclick="abrirModalCategoria()">+ Nueva categoría</button>
   </div>
@@ -193,20 +258,11 @@
   const SUPABASE_URL = 'https://oaiutkqvrywttrkajyye.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9haXV0a3F2cnl3dHRya2FqeXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzQzMTYsImV4cCI6MjA5NTQ1MDMxNn0.DeoK-NDQMocQhWEGATB5HRilt3rttEEIXznTyKlPmCU';
 
-  let clienteId = null;
-  let clienteSlug = null;
-  let categorias = [];
-  let platos = [];
-  let editCatId = null;
+  let clienteId = null, clienteSlug = null, categorias = [], platos = [], editCatId = null;
+  let tipografiaActual = 'clasica';
 
-  function getSession() {
-    try { return JSON.parse(localStorage.getItem('et_session')); } catch { return null; }
-  }
-
-  function logout() {
-    localStorage.removeItem('et_session');
-    window.location.href = 'login.html';
-  }
+  function getSession() { try { return JSON.parse(localStorage.getItem('et_session')); } catch { return null; } }
+  function logout() { localStorage.removeItem('et_session'); window.location.href = 'login.html'; }
 
   async function init() {
     const session = getSession();
@@ -215,23 +271,15 @@
     clienteId = session.cliente_id;
     clienteSlug = session.slug;
     const link = `${window.location.origin}/menu.html?local=${clienteSlug}`;
-    const el = document.getElementById('menu-link');
-    el.href = link; el.textContent = link;
+    document.getElementById('menu-link').href = link;
+    document.getElementById('menu-link').textContent = link;
     document.getElementById('page-title').textContent = session.nombre || 'Mi menú';
     await cargarCliente();
     await cargarTodo();
   }
 
   async function api(path, method='GET', body=null) {
-    const opts = {
-      method,
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Content-Type': 'application/json',
-        'Prefer': method === 'POST' ? 'return=minimal' : ''
-      }
-    };
+    const opts = { method, headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': method === 'POST' ? 'return=minimal' : '' } };
     if (body) opts.body = JSON.stringify(body);
     const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, opts);
     if (res.status === 204 || res.status === 201) return [];
@@ -242,62 +290,63 @@
     const data = await api(`clientes?id=eq.${clienteId}&select=*`);
     if (!data.length) return;
     const c = data[0];
-    if (c.logo_url) {
-      const el = document.getElementById('preview-logo');
-      el.src = c.logo_url; el.classList.add('show');
+    if (c.logo_url) { const el = document.getElementById('preview-logo'); el.src = c.logo_url; el.classList.add('show'); }
+    if (c.portada_url) { const el = document.getElementById('preview-portada'); el.src = c.portada_url; el.classList.add('show'); }
+    if (c.color_fondo) { document.getElementById('color-fondo').value = c.color_fondo; updateHex('fondo'); }
+    if (c.color_texto) { document.getElementById('color-texto').value = c.color_texto; updateHex('texto'); }
+    if (c.color_acento) { document.getElementById('color-acento').value = c.color_acento; updateHex('acento'); }
+    if (c.color_primario) { document.getElementById('color-primario').value = c.color_primario; updateHex('primario'); }
+    if (c.tipografia) {
+      tipografiaActual = c.tipografia;
+      document.querySelectorAll('.font-option').forEach(el => el.classList.remove('selected'));
+      document.querySelector(`[onclick*="${c.tipografia}"]`)?.classList.add('selected');
     }
-    if (c.portada_url) {
-      const el = document.getElementById('preview-portada');
-      el.src = c.portada_url; el.classList.add('show');
-    }
-    if (c.color_primario) {
-      document.getElementById('color-primario').value = c.color_primario;
-    }
+  }
+
+  function updateHex(tipo) {
+    const val = document.getElementById(`color-${tipo}`).value;
+    document.getElementById(`hex-${tipo}`).textContent = val;
+  }
+
+  async function guardarDiseno() {
+    await api(`clientes?id=eq.${clienteId}`, 'PATCH', {
+      color_fondo: document.getElementById('color-fondo').value,
+      color_texto: document.getElementById('color-texto').value,
+      color_acento: document.getElementById('color-acento').value,
+      color_primario: document.getElementById('color-primario').value,
+      tipografia: tipografiaActual
+    });
+    toast('Diseño guardado ✓');
+  }
+
+  function elegirFuente(fuente, el) {
+    tipografiaActual = fuente;
+    document.querySelectorAll('.font-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    guardarDiseno();
   }
 
   async function subirImagen(tipo) {
     const input = document.getElementById(`input-${tipo}`);
     const file = input.files[0];
     if (!file) return;
-
     const loading = document.getElementById(`loading-${tipo}`);
     loading.style.display = 'block';
-
     const ext = file.name.split('.').pop();
     const path = `${clienteId}/${tipo}.${ext}`;
-
-    // Subir a Supabase Storage
     const res = await fetch(`${SUPABASE_URL}/storage/v1/object/imagenes/${path}`, {
       method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': 'Bearer ' + SUPABASE_KEY,
-        'Content-Type': file.type,
-        'x-upsert': 'true'
-      },
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': file.type, 'x-upsert': 'true' },
       body: file
     });
-
     if (!res.ok) { toast('Error al subir imagen'); loading.style.display = 'none'; return; }
-
     const url = `${SUPABASE_URL}/storage/v1/object/public/imagenes/${path}?t=${Date.now()}`;
-
-    // Guardar URL en la tabla clientes
     const campo = tipo === 'logo' ? 'logo_url' : 'portada_url';
     await api(`clientes?id=eq.${clienteId}`, 'PATCH', { [campo]: url });
-
-    // Mostrar preview
     const preview = document.getElementById(`preview-${tipo}`);
-    preview.src = url;
-    preview.classList.add('show');
+    preview.src = url; preview.classList.add('show');
     loading.style.display = 'none';
     toast(`${tipo === 'logo' ? 'Logo' : 'Portada'} actualizado ✓`);
-  }
-
-  async function guardarColor() {
-    const color = document.getElementById('color-primario').value;
-    await api(`clientes?id=eq.${clienteId}`, 'PATCH', { color_primario: color });
-    toast('Color guardado ✓');
   }
 
   async function cargarTodo() {
@@ -305,22 +354,16 @@
     if (categorias.length) {
       const catIds = categorias.map(c => c.id).join(',');
       platos = await api(`platos?categoria_id=in.(${catIds})&order=orden.asc`);
-    } else {
-      platos = [];
-    }
+    } else { platos = []; }
     renderCategorias();
   }
 
   function renderCategorias() {
     const el = document.getElementById('categorias-list');
-    if (!categorias.length) {
-      el.innerHTML = '<div class="empty">No tenés categorías aún. ¡Creá la primera!</div>';
-      return;
-    }
+    if (!categorias.length) { el.innerHTML = '<div class="empty">No tenés categorías aún. ¡Creá la primera!</div>'; return; }
     el.innerHTML = categorias.map(cat => {
       const items = platos.filter(p => p.categoria_id === cat.id);
-      return `
-      <div class="card">
+      return `<div class="card">
         <div class="card-header">
           <span class="card-cat-name">${cat.nombre}</span>
           <div class="card-actions">
@@ -330,16 +373,15 @@
           </div>
         </div>
         <div class="card-body">
-          ${items.length ? items.map(p => `
-            <div class="plato-row">
-              <div class="plato-info">
-                <div class="plato-nombre">${p.nombre} ${p.tag ? `<span style="font-size:10px;background:var(--gold);color:#fff;padding:1px 6px;border-radius:2px;margin-left:4px">${p.tag}</span>` : ''}</div>
-                ${p.descripcion ? `<div class="plato-desc">${p.descripcion}</div>` : ''}
-              </div>
-              <div class="plato-precio">$${Number(p.precio).toLocaleString('es-AR')}</div>
-              <button class="btn btn-sm btn-outline" onclick="editarPlato('${p.id}')">✏️</button>
-              <button class="btn btn-sm btn-danger" onclick="eliminarPlato('${p.id}')">🗑</button>
-            </div>`).join('') : '<div class="empty" style="padding:16px 0">Sin platos aún</div>'}
+          ${items.length ? items.map(p => `<div class="plato-row">
+            <div class="plato-info">
+              <div class="plato-nombre">${p.nombre} ${p.tag ? `<span style="font-size:10px;background:var(--gold);color:#fff;padding:1px 6px;border-radius:2px;margin-left:4px">${p.tag}</span>` : ''}</div>
+              ${p.descripcion ? `<div class="plato-desc">${p.descripcion}</div>` : ''}
+            </div>
+            <div class="plato-precio">$${Number(p.precio).toLocaleString('es-AR')}</div>
+            <button class="btn btn-sm btn-outline" onclick="editarPlato('${p.id}')">✏️</button>
+            <button class="btn btn-sm btn-danger" onclick="eliminarPlato('${p.id}')">🗑</button>
+          </div>`).join('') : '<div class="empty" style="padding:16px 0">Sin platos aún</div>'}
         </div>
       </div>`;
     }).join('');
@@ -348,14 +390,8 @@
   function abrirModalCategoria(id=null) {
     editCatId = id;
     document.getElementById('modal-cat-title').textContent = id ? 'Editar categoría' : 'Nueva categoría';
-    if (id) {
-      const cat = categorias.find(c => c.id === id);
-      document.getElementById('cat-nombre').value = cat.nombre;
-      document.getElementById('cat-desc').value = cat.descripcion || '';
-    } else {
-      document.getElementById('cat-nombre').value = '';
-      document.getElementById('cat-desc').value = '';
-    }
+    if (id) { const cat = categorias.find(c => c.id === id); document.getElementById('cat-nombre').value = cat.nombre; document.getElementById('cat-desc').value = cat.descripcion || ''; }
+    else { document.getElementById('cat-nombre').value = ''; document.getElementById('cat-desc').value = ''; }
     document.getElementById('modal-cat').classList.add('open');
   }
 
@@ -366,11 +402,8 @@
     if (!nombre) { toast('Ingresá un nombre'); return; }
     const data = { nombre, descripcion: document.getElementById('cat-desc').value.trim(), cliente_id: clienteId };
     cerrarModal('modal-cat');
-    if (editCatId) {
-      await api(`categorias?id=eq.${editCatId}`, 'PATCH', data);
-    } else {
-      await api('categorias', 'POST', { ...data, orden: categorias.length });
-    }
+    if (editCatId) { await api(`categorias?id=eq.${editCatId}`, 'PATCH', data); }
+    else { await api('categorias', 'POST', { ...data, orden: categorias.length }); }
     await cargarTodo();
     toast(editCatId ? 'Categoría actualizada ✓' : 'Categoría creada ✓');
     editCatId = null;
@@ -380,51 +413,29 @@
     if (!confirm('¿Eliminar esta categoría y todos sus platos?')) return;
     await api(`platos?categoria_id=eq.${id}`, 'DELETE');
     await api(`categorias?id=eq.${id}`, 'DELETE');
-    await cargarTodo();
-    toast('Categoría eliminada');
+    await cargarTodo(); toast('Categoría eliminada');
   }
 
   function abrirModalPlato(catId, platoId=null) {
     document.getElementById('plato-cat-id').value = catId;
     document.getElementById('plato-id').value = platoId || '';
     document.getElementById('modal-plato-title').textContent = platoId ? 'Editar plato' : 'Nuevo plato';
-    if (platoId) {
-      const p = platos.find(x => x.id === platoId);
-      document.getElementById('plato-nombre').value = p.nombre;
-      document.getElementById('plato-desc').value = p.descripcion || '';
-      document.getElementById('plato-precio').value = p.precio;
-      document.getElementById('plato-tag').value = p.tag || '';
-    } else {
-      ['plato-nombre','plato-desc','plato-precio','plato-tag'].forEach(id => document.getElementById(id).value = '');
-    }
+    if (platoId) { const p = platos.find(x => x.id === platoId); document.getElementById('plato-nombre').value = p.nombre; document.getElementById('plato-desc').value = p.descripcion || ''; document.getElementById('plato-precio').value = p.precio; document.getElementById('plato-tag').value = p.tag || ''; }
+    else { ['plato-nombre','plato-desc','plato-precio','plato-tag'].forEach(id => document.getElementById(id).value = ''); }
     document.getElementById('modal-plato').classList.add('open');
   }
 
-  function editarPlato(id) {
-    const p = platos.find(x => x.id === id);
-    abrirModalPlato(p.categoria_id, id);
-  }
+  function editarPlato(id) { const p = platos.find(x => x.id === id); abrirModalPlato(p.categoria_id, id); }
 
   async function guardarPlato() {
     const nombre = document.getElementById('plato-nombre').value.trim();
     const precio = document.getElementById('plato-precio').value;
     if (!nombre || !precio) { toast('Nombre y precio son obligatorios'); return; }
     const platoId = document.getElementById('plato-id').value;
-    const data = {
-      nombre,
-      descripcion: document.getElementById('plato-desc').value.trim(),
-      precio: parseFloat(precio),
-      tag: document.getElementById('plato-tag').value.trim(),
-      categoria_id: document.getElementById('plato-cat-id').value,
-      activo: true,
-      orden: 0
-    };
+    const data = { nombre, descripcion: document.getElementById('plato-desc').value.trim(), precio: parseFloat(precio), tag: document.getElementById('plato-tag').value.trim(), categoria_id: document.getElementById('plato-cat-id').value, activo: true, orden: 0 };
     cerrarModal('modal-plato');
-    if (platoId) {
-      await api(`platos?id=eq.${platoId}`, 'PATCH', data);
-    } else {
-      await api('platos', 'POST', data);
-    }
+    if (platoId) { await api(`platos?id=eq.${platoId}`, 'PATCH', data); }
+    else { await api('platos', 'POST', data); }
     await cargarTodo();
     toast(platoId ? 'Plato actualizado ✓' : 'Plato agregado ✓');
   }
@@ -432,16 +443,14 @@
   async function eliminarPlato(id) {
     if (!confirm('¿Eliminar este plato?')) return;
     await api(`platos?id=eq.${id}`, 'DELETE');
-    await cargarTodo();
-    toast('Plato eliminado');
+    await cargarTodo(); toast('Plato eliminado');
   }
 
   function cerrarModal(id) { document.getElementById(id).classList.remove('open'); }
 
   function toast(msg) {
     const el = document.getElementById('toast');
-    el.textContent = msg;
-    el.classList.add('show');
+    el.textContent = msg; el.classList.add('show');
     setTimeout(() => el.classList.remove('show'), 2500);
   }
 
