@@ -15,7 +15,7 @@
     body { background: var(--cream); color: var(--dark); font-family: var(--font-body, 'DM Sans', sans-serif); font-weight: 300; min-height: 100vh; padding-bottom: 80px; }
     .portada { width: 100%; height: 200px; object-fit: cover; display: block; }
     .hero { padding: 32px 28px 28px; text-align: center; border-bottom: 1px solid var(--line); animation: fadeDown .8s ease both; }
-    .hero-logo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid var(--cream); margin: -52px auto 16px; display: block; box-shadow: 0 2px 12px rgba(0,0,0,.12); position: relative; }
+    .hero-logo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid var(--cream); margin: -52px auto 16px; display: block; box-shadow: 0 2px 12px rgba(0,0,0,.12); }
     .hero-logo.no-portada { margin: 0 auto 16px; }
     .hero-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
     .hero-badge::before, .hero-badge::after { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
@@ -41,11 +41,30 @@
     .divider span { font-size: 14px; color: var(--gold); }
     .loading { text-align: center; padding: 60px 24px; color: var(--muted); font-size: 14px; }
     .error-msg { text-align: center; padding: 60px 24px; color: var(--brown); font-size: 14px; }
-    .footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); color: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+
+    /* FOOTER */
+    .footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); color: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; z-index: 50; }
     .footer-left { display: flex; align-items: center; gap: 10px; }
     .nfc-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 2s ease infinite; }
     .footer-text { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.5); }
     .footer-brand { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+
+    /* BOTÓN FLOTANTE */
+    .fab-wrap { position: fixed; bottom: 70px; right: 20px; z-index: 100; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+    .fab-menu { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; opacity: 0; pointer-events: none; transform: translateY(10px); transition: opacity .25s, transform .25s; }
+    .fab-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .fab-item { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
+    .fab-label { background: var(--dark); color: #fff; font-size: 12px; letter-spacing: .04em; padding: 7px 14px; border-radius: 20px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
+    .fab-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.2); flex-shrink: 0; }
+    .fab-icon.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+    .fab-icon.wa { background: #25D366; }
+    .fab-icon.gm { background: #fff; }
+    .fab-icon.rv { background: var(--gold); }
+    .fab-btn { width: 52px; height: 52px; border-radius: 50%; background: var(--gold); border: none; cursor: pointer; font-size: 24px; box-shadow: 0 4px 12px rgba(0,0,0,.25); transition: transform .2s, background .2s; display: flex; align-items: center; justify-content: center; }
+    .fab-btn.open { transform: rotate(45deg); background: var(--dark); }
+    .fab-overlay { display: none; position: fixed; inset: 0; z-index: 99; }
+    .fab-overlay.open { display: block; }
+
     @keyframes fadeDown { from { opacity:0; transform:translateY(-12px); } to { opacity:1; transform:translateY(0); } }
     @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
     @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.8); } }
@@ -53,7 +72,16 @@
 </head>
 <body>
   <div id="menu-content"><div class="loading">Cargando menú...</div></div>
-  <div class="footer">
+
+  <!-- BOTÓN FLOTANTE -->
+  <div class="fab-overlay" id="fab-overlay" onclick="cerrarFab()"></div>
+  <div class="fab-wrap">
+    <div class="fab-menu" id="fab-menu"></div>
+    <button class="fab-btn" id="fab-btn" onclick="toggleFab()">+</button>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" id="footer-bar">
     <div class="footer-left">
       <div class="nfc-dot"></div>
       <span class="footer-text">Token NFC activo</span>
@@ -64,20 +92,47 @@
   <script>
     const SUPABASE_URL = 'https://oaiutkqvrywttrkajyye.supabase.co';
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9haXV0a3F2cnl3dHRya2FqeXllIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4NzQzMTYsImV4cCI6MjA5NTQ1MDMxNn0.DeoK-NDQMocQhWEGATB5HRilt3rttEEIXznTyKlPmCU';
-
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('local') || 'cafe-origen';
 
     const FUENTES = {
-      clasica:  { titulo: "'Cormorant Garamond', serif",  body: "'DM Sans', sans-serif",    google: "Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;400" },
-      moderna:  { titulo: "'DM Sans', sans-serif",         body: "'DM Sans', sans-serif",    google: "DM+Sans:wght@300;400" },
-      bold:     { titulo: "'DM Sans', sans-serif",         body: "'DM Sans', sans-serif",    google: "DM+Sans:wght@400;500" },
-      mono:     { titulo: "'Courier New', monospace",      body: "'Courier New', monospace", google: "" }
+      clasica: { titulo: "'Cormorant Garamond', serif", body: "'DM Sans', sans-serif", google: "Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;400" },
+      moderna: { titulo: "'DM Sans', sans-serif", body: "'DM Sans', sans-serif", google: "DM+Sans:wght@300;400" },
+      bold:    { titulo: "'DM Sans', sans-serif", body: "'DM Sans', sans-serif", google: "DM+Sans:wght@400;500" },
+      mono:    { titulo: "'Courier New', monospace", body: "'Courier New', monospace", google: "" }
     };
 
     async function fetchJSON(url) {
       const res = await fetch(url, { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } });
       return res.json();
+    }
+
+    function toggleFab() {
+      document.getElementById('fab-menu').classList.toggle('open');
+      document.getElementById('fab-btn').classList.toggle('open');
+      document.getElementById('fab-overlay').classList.toggle('open');
+    }
+
+    function cerrarFab() {
+      document.getElementById('fab-menu').classList.remove('open');
+      document.getElementById('fab-btn').classList.remove('open');
+      document.getElementById('fab-overlay').classList.remove('open');
+    }
+
+    function buildFab(c) {
+      const items = [];
+      if (c.instagram) items.push({ href: `https://instagram.com/${c.instagram.replace('@','')}`, icon: '📸', cls: 'ig', label: 'Nuestro Instagram' });
+      if (c.whatsapp)  items.push({ href: `https://wa.me/${c.whatsapp.replace(/\D/g,'')}`, icon: '💬', cls: 'wa', label: 'Escribinos por WhatsApp' });
+      if (c.google_maps) items.push({ href: c.google_maps, icon: '🗺️', cls: 'gm', label: 'Cómo llegar' });
+      if (c.resena_url) items.push({ href: c.resena_url, icon: '⭐', cls: 'rv', label: 'Dejanos una reseña' });
+
+      if (!items.length) { document.getElementById('fab-btn').style.display = 'none'; return; }
+
+      document.getElementById('fab-menu').innerHTML = items.map(item => `
+        <a class="fab-item" href="${item.href}" target="_blank" onclick="cerrarFab()">
+          <span class="fab-label">${item.label}</span>
+          <span class="fab-icon ${item.cls}">${item.icon}</span>
+        </a>`).join('');
     }
 
     async function cargarMenu() {
@@ -86,20 +141,22 @@
         if (!clientes.length) { document.getElementById('menu-content').innerHTML = '<div class="error-msg">Local no encontrado.</div>'; return; }
         const c = clientes[0];
 
-        // Aplicar estilos personalizados
+        // Estilos
         const root = document.documentElement;
         if (c.color_fondo)   root.style.setProperty('--cream', c.color_fondo);
         if (c.color_texto)   root.style.setProperty('--dark', c.color_texto);
         if (c.color_acento)  { root.style.setProperty('--gold', c.color_acento); root.style.setProperty('--brown', c.color_acento); }
-        if (c.color_primario) document.querySelector('.footer').style.background = c.color_primario;
+        if (c.color_primario) document.getElementById('footer-bar').style.background = c.color_primario;
 
-        // Tipografía
         const fuente = FUENTES[c.tipografia] || FUENTES.clasica;
         if (fuente.google) document.getElementById('google-font').href = `https://fonts.googleapis.com/css2?family=${fuente.google}&display=swap`;
         root.style.setProperty('--font-titulo', fuente.titulo);
         root.style.setProperty('--font-body', fuente.body);
-        if (c.tipografia === 'bold') { root.style.setProperty('--font-weight-titulo', '500'); }
 
+        // FAB
+        buildFab(c);
+
+        // Contenido
         const categorias = await fetchJSON(`${SUPABASE_URL}/rest/v1/categorias?cliente_id=eq.${c.id}&select=*&order=orden.asc`);
         let platos = [];
         if (categorias.length) {
@@ -109,12 +166,9 @@
 
         let html = '';
         if (c.portada_url) html += `<img class="portada" src="${c.portada_url}" alt="Portada">`;
-
-        const logoClass = c.portada_url ? '' : 'no-portada';
         html += `<div class="hero">`;
-        if (c.logo_url) html += `<img class="hero-logo ${logoClass}" src="${c.logo_url}" alt="Logo">`;
+        if (c.logo_url) html += `<img class="hero-logo ${c.portada_url ? '' : 'no-portada'}" src="${c.logo_url}" alt="Logo">`;
         html += `<div class="hero-badge">Menú digital</div><h1>${c.nombre}</h1><p class="hero-sub">${c.direccion || 'Buenos Aires'}</p></div>`;
-
         html += `<nav class="cat-nav">` + categorias.map((x, i) =>
           `<button class="cat-btn ${i===0?'active':''}" onclick="scrollToSec('cat-${x.id}', this)">${x.nombre}</button>`
         ).join('') + `</nav>`;
