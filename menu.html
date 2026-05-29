@@ -49,21 +49,16 @@
     .footer-text { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.5); }
     .footer-brand { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
 
-    /* BOTÓN FLOTANTE */
-    .fab-wrap { position: fixed; bottom: 70px; right: 20px; z-index: 100; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
-    .fab-menu { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; opacity: 0; pointer-events: none; transform: translateY(10px); transition: opacity .25s, transform .25s; }
-    .fab-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
-    .fab-item { display: flex; align-items: center; gap: 10px; cursor: pointer; text-decoration: none; }
-    .fab-label { background: var(--dark); color: #fff; font-size: 12px; letter-spacing: .04em; padding: 7px 14px; border-radius: 20px; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
-    .fab-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.2); flex-shrink: 0; }
-    .fab-icon.ig { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-    .fab-icon.wa { background: #25D366; }
-    .fab-icon.gm { background: #fff; }
-    .fab-icon.rv { background: var(--gold); }
-    .fab-btn { width: 52px; height: 52px; border-radius: 50%; background: var(--gold); border: none; cursor: pointer; font-size: 24px; box-shadow: 0 4px 12px rgba(0,0,0,.25); transition: transform .2s, background .2s; display: flex; align-items: center; justify-content: center; }
-    .fab-btn.open { transform: rotate(45deg); background: var(--dark); }
-    .fab-overlay { display: none; position: fixed; inset: 0; z-index: 99; }
-    .fab-overlay.open { display: block; }
+    /* REDES LATERAL */
+    .redes-wrap { position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 100; }
+    .redes-trigger { background: var(--dark); color: #fff; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 14px 8px; cursor: pointer; border-radius: 0 6px 6px 0; user-select: none; transition: background .2s; }
+    .redes-trigger:hover { background: var(--gold); }
+    .redes-wrap:hover .redes-menu { opacity: 1; pointer-events: all; transform: translateX(0); }
+    .redes-menu { position: absolute; left: 100%; top: 50%; transform: translate(-10px, -50%); opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; display: flex; flex-direction: column; gap: 10px; padding-left: 10px; }
+    .redes-item { display: flex; align-items: center; gap: 10px; text-decoration: none; white-space: nowrap; }
+    .redes-label { background: var(--dark); color: #fff; font-size: 12px; letter-spacing: .04em; padding: 7px 14px; border-radius: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
+    .redes-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,.2); flex-shrink: 0; overflow: hidden; background: #fff; }
+    .redes-icon img { width: 26px; height: 26px; object-fit: contain; }
 
     @keyframes fadeDown { from { opacity:0; transform:translateY(-12px); } to { opacity:1; transform:translateY(0); } }
     @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
@@ -73,11 +68,10 @@
 <body>
   <div id="menu-content"><div class="loading">Cargando menú...</div></div>
 
-  <!-- BOTÓN FLOTANTE -->
-  <div class="fab-overlay" id="fab-overlay" onclick="cerrarFab()"></div>
-  <div class="fab-wrap">
-    <div class="fab-menu" id="fab-menu"></div>
-    <button class="fab-btn" id="fab-btn" onclick="toggleFab()">+</button>
+  <!-- REDES LATERAL -->
+  <div class="redes-wrap" id="redes-wrap">
+    <div class="redes-trigger">Nuestras redes</div>
+    <div class="redes-menu" id="redes-menu"></div>
   </div>
 
   <!-- FOOTER -->
@@ -107,31 +101,26 @@
       return res.json();
     }
 
-    function toggleFab() {
-      document.getElementById('fab-menu').classList.toggle('open');
-      document.getElementById('fab-btn').classList.toggle('open');
-      document.getElementById('fab-overlay').classList.toggle('open');
-    }
-
-    function cerrarFab() {
-      document.getElementById('fab-menu').classList.remove('open');
-      document.getElementById('fab-btn').classList.remove('open');
-      document.getElementById('fab-overlay').classList.remove('open');
-    }
-
-    function buildFab(c) {
+    function buildRedes(c) {
+      const ICONS = {
+        ig: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/240px-Instagram_icon.png',
+        wa: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/240px-WhatsApp.svg.png',
+        gm: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Google_Maps_Logo_2020.svg/240px-Google_Maps_Logo_2020.svg.png',
+        rv: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24701-google-star-rating.svg/240px-24701-google-star-rating.svg.png'
+      };
       const items = [];
-      if (c.instagram) items.push({ href: `https://instagram.com/${c.instagram.replace('@','')}`, icon: '📸', cls: 'ig', label: 'Nuestro Instagram' });
-      if (c.whatsapp)  items.push({ href: `https://wa.me/${c.whatsapp.replace(/\D/g,'')}`, icon: '💬', cls: 'wa', label: 'Escribinos por WhatsApp' });
-      if (c.google_maps) items.push({ href: c.google_maps, icon: '🗺️', cls: 'gm', label: 'Cómo llegar' });
-      if (c.resena_url) items.push({ href: c.resena_url, icon: '⭐', cls: 'rv', label: 'Dejanos una reseña' });
+      if (c.instagram)   items.push({ href: `https://instagram.com/${c.instagram.replace('@','')}`, icon: ICONS.ig, label: 'Instagram' });
+      if (c.whatsapp)    items.push({ href: `https://wa.me/${c.whatsapp.replace(/\D/g,'')}`, icon: ICONS.wa, label: 'WhatsApp' });
+      if (c.google_maps) items.push({ href: c.google_maps, icon: ICONS.gm, label: 'Maps' });
+      if (c.resena_url)  items.push({ href: c.resena_url, icon: ICONS.rv, label: 'Reseña' });
 
-      if (!items.length) { document.getElementById('fab-btn').style.display = 'none'; return; }
+      const wrap = document.getElementById('redes-wrap');
+      if (!items.length) { wrap.style.display = 'none'; return; }
 
-      document.getElementById('fab-menu').innerHTML = items.map(item => `
-        <a class="fab-item" href="${item.href}" target="_blank" onclick="cerrarFab()">
-          <span class="fab-label">${item.label}</span>
-          <span class="fab-icon ${item.cls}">${item.icon}</span>
+      document.getElementById('redes-menu').innerHTML = items.map(item => `
+        <a class="redes-item" href="${item.href}" target="_blank">
+          <span class="redes-label">${item.label}</span>
+          <span class="redes-icon"><img src="${item.icon}" alt="${item.label}"></span>
         </a>`).join('');
     }
 
@@ -154,7 +143,7 @@
         root.style.setProperty('--font-body', fuente.body);
 
         // FAB
-        buildFab(c);
+        buildRedes(c);
 
         // Contenido
         const categorias = await fetchJSON(`${SUPABASE_URL}/rest/v1/categorias?cliente_id=eq.${c.id}&select=*&order=orden.asc`);
