@@ -50,15 +50,15 @@
     .footer-brand { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
 
     /* REDES LATERAL */
-    .redes-wrap { position: fixed; left: 0; top: 50%; transform: translateY(-50%); z-index: 100; }
-    .redes-trigger { background: var(--dark); color: #fff; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 14px 8px; cursor: pointer; border-radius: 0 6px 6px 0; user-select: none; transition: background .2s; }
-    .redes-trigger:hover { background: var(--gold); }
-    .redes-wrap:hover .redes-menu { opacity: 1; pointer-events: all; transform: translateX(0); }
-    .redes-menu { position: absolute; left: 100%; top: 50%; transform: translate(-10px, -50%); opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; display: flex; flex-direction: column; gap: 10px; padding-left: 10px; }
-    .redes-item { display: flex; align-items: center; gap: 10px; text-decoration: none; white-space: nowrap; }
-    .redes-label { background: var(--dark); color: #fff; font-size: 12px; letter-spacing: .04em; padding: 7px 14px; border-radius: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
-    .redes-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,.2); flex-shrink: 0; overflow: hidden; background: #fff; }
-    .redes-icon img { width: 26px; height: 26px; object-fit: contain; }
+    .redes-wrap { position: fixed; right: 0; top: 50%; transform: translateY(-50%); z-index: 100; display: flex; align-items: center; }
+    .redes-trigger { background: rgba(0,0,0,.25); color: #fff; writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; padding: 14px 7px; cursor: pointer; border-radius: 6px 0 0 6px; user-select: none; transition: background .3s, opacity .3s; opacity: .5; backdrop-filter: blur(4px); }
+    .redes-wrap:hover .redes-trigger { background: rgba(0,0,0,.55); opacity: 1; }
+    .redes-wrap:hover .redes-menu { opacity: 1; pointer-events: all; transform: translate(-4px, -50%); }
+    .redes-menu { position: absolute; right: 100%; top: 50%; transform: translate(8px, -50%); opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; display: flex; flex-direction: column; gap: 10px; padding-right: 10px; }
+    .redes-item { display: flex; align-items: center; gap: 10px; text-decoration: none; white-space: nowrap; flex-direction: row-reverse; }
+    .redes-label { background: rgba(0,0,0,.65); color: #fff; font-size: 12px; letter-spacing: .04em; padding: 7px 14px; border-radius: 20px; box-shadow: 0 2px 8px rgba(0,0,0,.15); backdrop-filter: blur(4px); }
+    .redes-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,.2); flex-shrink: 0; overflow: hidden; background: #fff; }
+    .redes-icon svg { width: 22px; height: 22px; }
 
     @keyframes fadeDown { from { opacity:0; transform:translateY(-12px); } to { opacity:1; transform:translateY(0); } }
     @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
@@ -103,16 +103,16 @@
 
     function buildRedes(c) {
       const ICONS = {
-        ig: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/240px-Instagram_icon.png',
-        wa: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/240px-WhatsApp.svg.png',
-        gm: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Google_Maps_Logo_2020.svg/240px-Google_Maps_Logo_2020.svg.png',
-        rv: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24701-google-star-rating.svg/240px-24701-google-star-rating.svg.png'
+        ig: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="ig1" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="5%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><rect width="24" height="24" rx="5" fill="url(#ig1)"/><path d="M12 7a5 5 0 100 10A5 5 0 0012 7zm0 8a3 3 0 110-6 3 3 0 010 6zm5.2-8.8a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4z" fill="#fff"/></svg>`,
+        wa: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="5" fill="#25D366"/><path d="M12 4a8 8 0 00-6.93 11.97L4 20l4.17-1.06A8 8 0 1012 4zm0 14.5a6.46 6.46 0 01-3.29-.9l-.24-.14-2.47.63.65-2.41-.16-.25A6.5 6.5 0 1112 18.5zm3.56-4.87c-.19-.1-1.14-.56-1.31-.63-.18-.06-.3-.1-.43.1-.13.19-.5.63-.62.76-.11.13-.23.14-.42.05a5.3 5.3 0 01-1.56-.96 5.84 5.84 0 01-1.08-1.34c-.11-.2-.01-.3.09-.4l.28-.33c.1-.12.13-.2.19-.33.07-.13.03-.25-.02-.35-.05-.1-.43-1.04-.59-1.42-.15-.37-.31-.32-.43-.33h-.36c-.13 0-.33.05-.5.24-.18.19-.67.65-.67 1.59s.69 1.84.78 1.97c.1.13 1.35 2.06 3.27 2.89.46.2.81.31 1.09.4.46.14.87.12 1.2.07.37-.05 1.14-.46 1.3-.91.16-.45.16-.84.11-.91-.04-.08-.17-.13-.36-.22z" fill="#fff"/></svg>`,
+        gm: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="5" fill="#fff"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z" fill="#EA4335"/></svg>`,
+        rv: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="5" fill="#FBBC05"/><path d="M12 3l2.47 5 5.53.8-4 3.9.94 5.5L12 15.5l-4.94 2.7.94-5.5L4 8.8l5.53-.8z" fill="#fff"/></svg>`
       };
       const items = [];
       if (c.instagram)   items.push({ href: `https://instagram.com/${c.instagram.replace('@','')}`, icon: ICONS.ig, label: 'Instagram' });
       if (c.whatsapp)    items.push({ href: `https://wa.me/${c.whatsapp.replace(/\D/g,'')}`, icon: ICONS.wa, label: 'WhatsApp' });
-      if (c.google_maps) items.push({ href: c.google_maps, icon: ICONS.gm, label: 'Maps' });
-      if (c.resena_url)  items.push({ href: c.resena_url, icon: ICONS.rv, label: 'Reseña' });
+      if (c.google_maps) items.push({ href: c.google_maps, icon: ICONS.gm, label: 'Cómo llegar' });
+      if (c.resena_url)  items.push({ href: c.resena_url, icon: ICONS.rv, label: 'Dejanos una reseña' });
 
       const wrap = document.getElementById('redes-wrap');
       if (!items.length) { wrap.style.display = 'none'; return; }
@@ -120,7 +120,7 @@
       document.getElementById('redes-menu').innerHTML = items.map(item => `
         <a class="redes-item" href="${item.href}" target="_blank">
           <span class="redes-label">${item.label}</span>
-          <span class="redes-icon"><img src="${item.icon}" alt="${item.label}"></span>
+          <span class="redes-icon">${item.icon}</span>
         </a>`).join('');
     }
 
