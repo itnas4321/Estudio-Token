@@ -4,47 +4,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Menú Digital</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <link id="google-font" rel="stylesheet" href="">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --cream: #F7F4EF;
-      --dark: #1A1814;
-      --brown: #6B4F3A;
-      --gold: #C9A96E;
-      --muted: #9A8E82;
-      --line: #E2DDD6;
+      --cream: #F7F4EF; --dark: #1A1814; --brown: #6B4F3A;
+      --gold: #C9A96E; --muted: #9A8E82; --line: #E2DDD6;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--cream); color: var(--dark); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; padding-bottom: 80px; }
-
-    /* PORTADA */
-    .portada {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* HERO */
+    body { background: var(--cream); color: var(--dark); font-family: var(--font-body, 'DM Sans', sans-serif); font-weight: 300; min-height: 100vh; padding-bottom: 80px; }
+    .portada { width: 100%; height: 200px; object-fit: cover; display: block; }
     .hero { padding: 32px 28px 28px; text-align: center; border-bottom: 1px solid var(--line); animation: fadeDown .8s ease both; }
     .hero-logo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid var(--cream); margin: -52px auto 16px; display: block; box-shadow: 0 2px 12px rgba(0,0,0,.12); position: relative; }
     .hero-logo.no-portada { margin: 0 auto 16px; }
     .hero-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
     .hero-badge::before, .hero-badge::after { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
-    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; line-height: 1; letter-spacing: -.01em; margin-bottom: 6px; }
+    .hero h1 { font-family: var(--font-titulo, 'Cormorant Garamond', serif); font-size: 44px; font-weight: 300; line-height: 1; margin-bottom: 6px; }
     .hero h1 em { font-style: italic; color: var(--brown); }
     .hero-sub { font-size: 13px; color: var(--muted); letter-spacing: .04em; }
-
-    /* NAV */
     .cat-nav { display: flex; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); padding: 0 20px; }
     .cat-nav::-webkit-scrollbar { display: none; }
-    .cat-btn { flex-shrink: 0; background: none; border: none; padding: 14px 18px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s; }
+    .cat-btn { flex-shrink: 0; background: none; border: none; padding: 14px 18px; font-family: var(--font-body, 'DM Sans', sans-serif); font-size: 12px; font-weight: 400; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: color .2s, border-color .2s; }
     .cat-btn.active { color: var(--dark); border-bottom-color: var(--gold); }
-
-    /* ITEMS */
     .section { padding: 36px 24px 0; animation: fadeUp .6s ease both; }
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; font-style: italic; color: var(--brown); margin-bottom: 4px; }
+    .section-title { font-family: var(--font-titulo, 'Cormorant Garamond', serif); font-size: 28px; font-weight: 300; font-style: italic; color: var(--brown); margin-bottom: 4px; }
     .section-desc { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
     .item { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--line); }
     .item:last-child { border-bottom: none; }
@@ -52,20 +35,17 @@
     .item-name { font-size: 15px; font-weight: 400; margin-bottom: 4px; }
     .item-detail { font-size: 12px; color: var(--muted); line-height: 1.5; }
     .item-tag { display: inline-block; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; background: var(--gold); color: #fff; padding: 2px 7px; border-radius: 2px; margin-top: 6px; }
-    .item-price { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; color: var(--brown); white-space: nowrap; padding-top: 2px; }
+    .item-price { font-family: var(--font-titulo, 'Cormorant Garamond', serif); font-size: 20px; font-weight: 300; color: var(--brown); white-space: nowrap; padding-top: 2px; }
     .divider { display: flex; align-items: center; gap: 12px; padding: 32px 24px 0; opacity: .4; }
     .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--gold); }
     .divider span { font-size: 14px; color: var(--gold); }
     .loading { text-align: center; padding: 60px 24px; color: var(--muted); font-size: 14px; }
     .error-msg { text-align: center; padding: 60px 24px; color: var(--brown); font-size: 14px; }
-
-    /* FOOTER */
     .footer { position: fixed; bottom: 0; left: 0; right: 0; background: var(--dark); color: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
     .footer-left { display: flex; align-items: center; gap: 10px; }
     .nfc-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 2s ease infinite; }
     .footer-text { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.5); }
     .footer-brand { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
-
     @keyframes fadeDown { from { opacity:0; transform:translateY(-12px); } to { opacity:1; transform:translateY(0); } }
     @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
     @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.4; transform:scale(.8); } }
@@ -73,7 +53,6 @@
 </head>
 <body>
   <div id="menu-content"><div class="loading">Cargando menú...</div></div>
-
   <div class="footer">
     <div class="footer-left">
       <div class="nfc-dot"></div>
@@ -89,82 +68,69 @@
     const params = new URLSearchParams(window.location.search);
     const slug = params.get('local') || 'cafe-origen';
 
+    const FUENTES = {
+      clasica:  { titulo: "'Cormorant Garamond', serif",  body: "'DM Sans', sans-serif",    google: "Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;400" },
+      moderna:  { titulo: "'DM Sans', sans-serif",         body: "'DM Sans', sans-serif",    google: "DM+Sans:wght@300;400" },
+      bold:     { titulo: "'DM Sans', sans-serif",         body: "'DM Sans', sans-serif",    google: "DM+Sans:wght@400;500" },
+      mono:     { titulo: "'Courier New', monospace",      body: "'Courier New', monospace", google: "" }
+    };
+
     async function fetchJSON(url) {
-      const res = await fetch(url, {
-        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
-      });
+      const res = await fetch(url, { headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } });
       return res.json();
     }
 
     async function cargarMenu() {
       try {
         const clientes = await fetchJSON(`${SUPABASE_URL}/rest/v1/clientes?slug=eq.${slug}&select=*`);
-        if (!clientes.length) {
-          document.getElementById('menu-content').innerHTML = '<div class="error-msg">Local no encontrado.</div>';
-          return;
-        }
-        const cliente = clientes[0];
+        if (!clientes.length) { document.getElementById('menu-content').innerHTML = '<div class="error-msg">Local no encontrado.</div>'; return; }
+        const c = clientes[0];
 
-        // Aplicar color personalizado
-        if (cliente.color_primario) {
-          document.documentElement.style.setProperty('--gold', cliente.color_primario);
-          document.documentElement.style.setProperty('--brown', cliente.color_primario);
-        }
+        // Aplicar estilos personalizados
+        const root = document.documentElement;
+        if (c.color_fondo)   root.style.setProperty('--cream', c.color_fondo);
+        if (c.color_texto)   root.style.setProperty('--dark', c.color_texto);
+        if (c.color_acento)  { root.style.setProperty('--gold', c.color_acento); root.style.setProperty('--brown', c.color_acento); }
+        if (c.color_primario) document.querySelector('.footer').style.background = c.color_primario;
 
-        const categorias = await fetchJSON(`${SUPABASE_URL}/rest/v1/categorias?cliente_id=eq.${cliente.id}&select=*&order=orden.asc`);
+        // Tipografía
+        const fuente = FUENTES[c.tipografia] || FUENTES.clasica;
+        if (fuente.google) document.getElementById('google-font').href = `https://fonts.googleapis.com/css2?family=${fuente.google}&display=swap`;
+        root.style.setProperty('--font-titulo', fuente.titulo);
+        root.style.setProperty('--font-body', fuente.body);
+        if (c.tipografia === 'bold') { root.style.setProperty('--font-weight-titulo', '500'); }
+
+        const categorias = await fetchJSON(`${SUPABASE_URL}/rest/v1/categorias?cliente_id=eq.${c.id}&select=*&order=orden.asc`);
         let platos = [];
         if (categorias.length) {
-          const catIds = categorias.map(c => c.id).join(',');
+          const catIds = categorias.map(x => x.id).join(',');
           platos = await fetchJSON(`${SUPABASE_URL}/rest/v1/platos?categoria_id=in.(${catIds})&activo=eq.true&order=orden.asc`);
         }
 
-        // Armar HTML
         let html = '';
+        if (c.portada_url) html += `<img class="portada" src="${c.portada_url}" alt="Portada">`;
 
-        // Portada
-        if (cliente.portada_url) {
-          html += `<img class="portada" src="${cliente.portada_url}" alt="Portada">`;
-        }
-
-        // Hero
-        const logoClass = cliente.portada_url ? '' : 'no-portada';
+        const logoClass = c.portada_url ? '' : 'no-portada';
         html += `<div class="hero">`;
-        if (cliente.logo_url) {
-          html += `<img class="hero-logo ${logoClass}" src="${cliente.logo_url}" alt="Logo">`;
-        }
-        html += `<div class="hero-badge">Menú digital</div>
-          <h1>${cliente.nombre}</h1>
-          <p class="hero-sub">${cliente.direccion || 'Buenos Aires'}</p>
-        </div>`;
+        if (c.logo_url) html += `<img class="hero-logo ${logoClass}" src="${c.logo_url}" alt="Logo">`;
+        html += `<div class="hero-badge">Menú digital</div><h1>${c.nombre}</h1><p class="hero-sub">${c.direccion || 'Buenos Aires'}</p></div>`;
 
-        // Nav categorías
-        html += `<nav class="cat-nav">` + categorias.map((c, i) =>
-          `<button class="cat-btn ${i===0?'active':''}" onclick="scrollToSec('cat-${c.id}', this)">${c.nombre}</button>`
+        html += `<nav class="cat-nav">` + categorias.map((x, i) =>
+          `<button class="cat-btn ${i===0?'active':''}" onclick="scrollToSec('cat-${x.id}', this)">${x.nombre}</button>`
         ).join('') + `</nav>`;
 
-        // Secciones
         categorias.forEach((cat, i) => {
           const items = platos.filter(p => p.categoria_id === cat.id);
           if (!items.length) return;
           if (i > 0) html += '<div class="divider"><span>✦</span></div>';
-          html += `<div class="section" id="cat-${cat.id}">
-            <div class="section-title">${cat.nombre}</div>
-            ${cat.descripcion ? `<div class="section-desc">${cat.descripcion}</div>` : ''}`;
+          html += `<div class="section" id="cat-${cat.id}"><div class="section-title">${cat.nombre}</div>${cat.descripcion ? `<div class="section-desc">${cat.descripcion}</div>` : ''}`;
           items.forEach(p => {
-            html += `<div class="item">
-              <div class="item-info">
-                <div class="item-name">${p.nombre}</div>
-                ${p.descripcion ? `<div class="item-detail">${p.descripcion}</div>` : ''}
-                ${p.tag ? `<span class="item-tag">${p.tag}</span>` : ''}
-              </div>
-              <div class="item-price">$${Number(p.precio).toLocaleString('es-AR')}</div>
-            </div>`;
+            html += `<div class="item"><div class="item-info"><div class="item-name">${p.nombre}</div>${p.descripcion ? `<div class="item-detail">${p.descripcion}</div>` : ''}${p.tag ? `<span class="item-tag">${p.tag}</span>` : ''}</div><div class="item-price">$${Number(p.precio).toLocaleString('es-AR')}</div></div>`;
           });
           html += '</div>';
         });
 
         if (!categorias.length) html += '<div class="error-msg">No hay platos cargados aún.</div>';
-
         document.getElementById('menu-content').innerHTML = html;
 
       } catch(e) {
@@ -177,16 +143,6 @@
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
     }
-
-    window.addEventListener('scroll', () => {
-      const sections = document.querySelectorAll('.section');
-      let current = null;
-      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) current = s.id; });
-      if (!current) return;
-      document.querySelectorAll('.cat-btn').forEach(btn => {
-        btn.classList.toggle('active', `cat-${btn.dataset.id}` === current);
-      });
-    });
 
     cargarMenu();
   </script>
